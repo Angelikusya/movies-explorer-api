@@ -1,10 +1,10 @@
 require('dotenv').config();
 const express = require('express');
-const cors = require('cors');
 const bodyParser = require('body-parser');
 const { errors } = require('celebrate');
 const mongoose = require('mongoose');
 const helmet = require('helmet');
+const cors = require('cors');
 const errorHandler = require('./middlewares/errorHandler');
 
 const { requestLogger, errorLogger } = require('./middlewares/logger');
@@ -24,7 +24,7 @@ mongoose.connect(`${MONGO_URL}`)
 const options = {
   origin: [
     'http://localhost:3000',
-    'http://localhost:3000/users/me',
+    'http://localhost:3001',
   ],
   methods: ['GET', 'HEAD', 'PUT', 'PATCH', 'POST', 'DELETE'],
   preflightContinue: false,
@@ -33,7 +33,7 @@ const options = {
   credentials: true,
 };
 
-app.use(cors(options)); // ПЕРВЫМ!
+app.use(cors(options));
 app.use(express.json());
 app.use(requestLogger); // подключаем логгер запросов
 
