@@ -13,24 +13,10 @@ const { router } = require('./routes');
 
 const app = express();
 const { PORT = 3001, MONGO_URL = 'mongodb://127.0.0.1:27017/bitfilmsdb' } = process.env;
-
-app.use(bodyParser.json());
-app.use(bodyParser.urlencoded({ extended: true }));
-
-mongoose.connect(`${MONGO_URL}`)
-  .then(() => console.log('база данных подключена'))
-  .catch((err) => console.error(err));
-
-const allowedOrigins = ['http://localhost:3000', 'http://localhost:3001'];
-
-const corsOptions = {
-  origin: (origin, callback) => {
-    if (!origin || allowedOrigins.includes(origin)) {
-      callback(null, true);
-    } else {
-      callback(new Error('Not allowed by CORS'));
-    }
-  },
+const options = {
+  origin: [
+    'http://localhost:3000',
+  ],
   methods: ['GET', 'HEAD', 'PUT', 'PATCH', 'POST', 'DELETE'],
   preflightContinue: false,
   optionsSuccessStatus: 204,
@@ -38,7 +24,15 @@ const corsOptions = {
   credentials: true,
 };
 
-app.use(cors(corsOptions));
+app.use(cors(options));
+app.use(bodyParser.json());
+app.use(bodyParser.urlencoded({ extended: true }));
+
+mongoose.connect(`${MONGO_URL}`)
+  .then(() => console.log('база данных подключена'))
+  .catch((err) => console.error(err));
+
+
 app.use(express.json());
 app.use(requestLogger); // подключаем логгер запросов
 
