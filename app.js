@@ -24,6 +24,7 @@ mongoose.connect(`${MONGO_URL}`)
 const options = {
   origin: [
     'http://localhost:3000',
+    'http://localhost:3000/users/me',
   ],
   methods: ['GET', 'HEAD', 'PUT', 'PATCH', 'POST', 'DELETE'],
   preflightContinue: false,
@@ -33,7 +34,6 @@ const options = {
 };
 
 app.use(cors(options)); // ПЕРВЫМ!
-
 app.use(express.json());
 app.use(requestLogger); // подключаем логгер запросов
 
