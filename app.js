@@ -23,7 +23,7 @@ mongoose.connect(`${MONGO_URL}`)
 
 app.use(cors({
   origin: 'http://localhost:3000', // разрешаем запросы только с этого домена
-  methods: ['GET', 'POST', 'PUT', 'DELETE'], // разрешаем определенные методы
+  methods: ['GET', 'POST', 'PUT', 'DELETE', 'PATCH'], // разрешаем определенные методы
   allowedHeaders: ['Content-Type', 'Authorization'], // разрешаем определенные заголовки
 }));
 
