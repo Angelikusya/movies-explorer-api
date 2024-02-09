@@ -1,6 +1,6 @@
 require('dotenv').config();
 const express = require('express');
-const cors = require('cors');
+// const cors = require('cors');
 const bodyParser = require('body-parser');
 const { errors } = require('celebrate');
 const mongoose = require('mongoose');
@@ -22,6 +22,7 @@ mongoose.connect(`${MONGO_URL}`)
   .catch((err) => console.error(err));
 
 app.use(express.json());
+// app.use(cors());
 app.use(requestLogger); // подключаем логгер запросов
 
 app.use(helmet());
@@ -31,13 +32,6 @@ app.get('/crash-test', () => {
   }, 0);
 });
 console.log('crash-test');
-
-app.use((req, res, next) => {
-  res.header('Access-Control-Allow-Origin', 'http://localhost:3000');
-  res.header('Access-Control-Allow-Methods', 'GET, POST, PUT, DELETE, PATCH');
-  res.header('Access-Control-Allow-Headers', 'Content-Type, Authorization');
-  next();
-});
 
 app.use(router);
 
