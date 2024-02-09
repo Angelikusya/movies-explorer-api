@@ -21,12 +21,6 @@ mongoose.connect(`${MONGO_URL}`)
   .then(() => console.log('база данных подключена'))
   .catch((err) => console.error(err));
 
-app.use(cors({
-  origin: 'http://localhost:3000', // разрешаем запросы только с этого домена
-  methods: ['GET', 'POST', 'PUT', 'DELETE', 'PATCH'], // разрешаем определенные методы
-  allowedHeaders: ['Content-Type', 'Authorization'], // разрешаем определенные заголовки
-}));
-
 app.use(express.json());
 app.use(requestLogger); // подключаем логгер запросов
 
@@ -37,6 +31,13 @@ app.get('/crash-test', () => {
   }, 0);
 });
 console.log('crash-test');
+
+app.use((req, res, next) => {
+  res.header('Access-Control-Allow-Origin', 'http://localhost:3000');
+  res.header('Access-Control-Allow-Methods', 'GET, POST, PUT, DELETE, PATCH');
+  res.header('Access-Control-Allow-Headers', 'Content-Type, Authorization');
+  next();
+});
 
 app.use(router);
 
