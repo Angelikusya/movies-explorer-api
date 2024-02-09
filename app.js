@@ -21,11 +21,6 @@ mongoose.connect(`${MONGO_URL}`)
   .then(() => console.log('база данных подключена'))
   .catch((err) => console.error(err));
 
-app.use((req, res, next) => {
-  res.setHeader('Access-Control-Allow-Origin', 'http://localhost:3000');
-  next();
-});
-
 app.use(cors({
   origin: 'http://localhost:3000', // разрешаем запросы только с этого домена
   methods: ['GET', 'POST', 'PUT', 'DELETE', 'PATCH'], // разрешаем определенные методы
