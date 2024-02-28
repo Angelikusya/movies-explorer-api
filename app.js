@@ -16,6 +16,7 @@ const { PORT = 3001, MONGO_URL = 'mongodb://127.0.0.1:27017/bitfilmsdb' } = proc
 const options = {
   origin: [
     'http://localhost:3000',
+    'https://movies-angelikusya.nomoredomainswork.ru'
   ],
   methods: ['GET', 'HEAD', 'PUT', 'PATCH', 'POST', 'DELETE'],
   preflightContinue: false,
